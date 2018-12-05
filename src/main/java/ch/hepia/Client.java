@@ -1,7 +1,7 @@
 package ch.hepia;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
- 
+import java.util.Optional; 
 import javax.jms.*;
 import java.util.Random;
  
@@ -11,6 +11,10 @@ public class Client {
  
     private boolean transacted = false;
     private MessageProducer producer;
+
+    private Optional<Session> maybeSession = Optional.empty();
+    private Optional<MessageProducer> maybeProducer = Optional.empty();
+
  
     static {
         clientQueueName = "client.messages";
@@ -22,12 +26,16 @@ public class Client {
         try {
             Connection connection = connectionFactory.createConnection();
             connection.start();
+
             Session session = connection.createSession(transacted, ackMode);
+            maybeSession = maybeSession.of(session);
+
             Destination mainTopic = session.createTopic(clientQueueName);
  
             //Setup a message producer to send message to the queue the server is consuming from
-            this.producer = session.createProducer(mainTopic);
-            this.producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+            MessageProducer producer = session.createProducer(mainTopic);
+            producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+            maybeProducer = Optional.of(producer);
  
             MessageConsumer responseConsumer = session.createConsumer(mainTopic);
  
@@ -46,15 +54,27 @@ public class Client {
             });
  
             TextMessage txtMessage = session.createTextMessage("Test");
-            this.producer.send(txtMessage);
+            producer.send(txtMessage);
 
         } catch (JMSException e) {
             e.printStackTrace();
         }
     }
+
+    public void send(String msg) {
+        maybeProducer.ifPresent(p -> maybeSession.ifPresent(s -> {
+            try {
+                TextMessage txt = s.createTextMessage(msg);
+                p.send(txt);
+            } catch (JMSException e) {
+                e.printStackTrace();
+            }
+        }));
+    }
  
  
     public static void main(String[] args) {
-        new Client();
+        Client c = new Client();
+        c.send("COUCOU");
     }
 }

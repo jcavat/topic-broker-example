@@ -34,24 +34,10 @@ public class Server implements MessageListener {
             connection.start();
             this.session = connection.createSession(this.transacted, ackMode);
             Destination adminQueue = this.session.createTopic(mainTopic);
- 
-            //Setup a message producer to respond to messages from clients, we will get the destination
-            //to send to from the JMSReplyTo header field from a Message
-            //this.replyProducer = this.session.createProducer(null);
-            //this.replyProducer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
- 
-            //Set up a consumer to consume messages off of the admin queue
-            //MessageConsumer consumer = this.session.createConsumer(adminQueue);
-
-            //consumer.setMessageListener(this);
 
         } catch (Exception e) {
-            //Handle the exception appropriately
+            e.printStackTrace();
         }
- 
-        //Delegating the handling of messages to another class, instantiate it before setting up JMS so it
-        //is ready to handle messages
-        //this.setupMessageQueueConsumer();
     }
  
     /*
@@ -71,12 +57,8 @@ public class Server implements MessageListener {
                 String messageText = txtMsg.getText();
                 response.setText(messageText + " COUCOU");
             }
- 
-            //Send the response to the Destination specified by the JMSReplyTo field of the received message,
-            //this is presumably a temporary queue created by the client
-            //this.replyProducer.send(message.getJMSReplyTo(), response);
         } catch (JMSException e) {
-            //Handle the exception appropriately
+            e.printStackTrace();
         }
     }
  
