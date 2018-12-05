@@ -18,7 +18,7 @@ public class Client {
     }
  
     public Client() {
-        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://129.194.184.101:61616");
+        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
         try {
             Connection connection = connectionFactory.createConnection();
             connection.start();
