@@ -1,2 +1,6 @@
 target
 activemq-data
+.vscode
+.settings
+.classpath
+.project
