@@ -1,4 +1,4 @@
-package ch.hepia;
+package ch.hepia.communication;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -16,6 +16,8 @@ import javax.jms.Session;
 import javax.jms.TextMessage;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
+
+import ch.hepia.model.House;
 
 public class Client {
     private static int ackMode;

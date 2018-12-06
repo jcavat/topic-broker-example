@@ -1,4 +1,4 @@
-package ch.hepia;
+package ch.hepia.model;
 
 import java.io.Serializable;
 
@@ -6,6 +6,7 @@ import java.io.Serializable;
  * Person
  */
 public class Person implements Serializable {
+    private static final long serialVersionUID = 42L;
 
     private String name;
 

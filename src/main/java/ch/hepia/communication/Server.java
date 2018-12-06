@@ -1,4 +1,4 @@
-package ch.hepia;
+package ch.hepia.communication;
 
 import javax.jms.Connection;
 
