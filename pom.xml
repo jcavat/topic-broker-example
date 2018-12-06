@@ -39,14 +39,24 @@
         <version>1.6.0</version>
         <executions>
           <execution>
+            <id>server</id>
             <goals>
               <goal>java</goal>
             </goals>
+            <configuration>
+              <mainClass>ch.hepia.Server</mainClass>
+            </configuration>
+          </execution>
+          <execution>
+            <id>client</id>
+            <goals>
+              <goal>java</goal>
+            </goals>
+            <configuration>
+              <mainClass>ch.hepia.Client</mainClass>
+            </configuration>
           </execution>
         </executions>
-        <configuration>
-          <mainClass>ch.hepia.Client</mainClass>
-        </configuration>
       </plugin>
 
       <!-- The Surefire Plugin is used during the test phase of the build lifecycle 
