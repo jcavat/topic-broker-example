@@ -45,7 +45,7 @@
           </execution>
         </executions>
         <configuration>
-          <mainClass>ch.hepia.App</mainClass>
+          <mainClass>ch.hepia.Server</mainClass>
         </configuration>
       </plugin>
 
