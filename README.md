@@ -9,7 +9,7 @@ mvn package
 ## Execute the Broker
 
 ```
-mvn exec:java@server -Dexec.args="broker-ipaddress"
+mvn exec:java@broker -Dexec.args="broker-ipaddress"
 ```
 
 ## Execute one client
