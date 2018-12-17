@@ -39,12 +39,12 @@
         <version>1.6.0</version>
         <executions>
           <execution>
-            <id>server</id>
+            <id>broker</id>
             <goals>
               <goal>java</goal>
             </goals>
             <configuration>
-              <mainClass>ch.hepia.communication.Server</mainClass>
+              <mainClass>ch.hepia.communication.Broker</mainClass>
             </configuration>
           </execution>
           <execution>
