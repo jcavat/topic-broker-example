@@ -22,7 +22,6 @@ import ch.hepia.model.House;
 public class Client {
     private static int ackMode;
     private static String clientQueueName;
-    private static String messageBrokerUrl;
 
     private boolean transacted = false;
 
@@ -30,13 +29,15 @@ public class Client {
     private Optional<MessageProducer> maybeProducer;
 
     static {
-        messageBrokerUrl = "tcp://localhost:61616";
         clientQueueName = "client.messages";
         ackMode = Session.AUTO_ACKNOWLEDGE;
     }
 
-    public Client() {
-        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(messageBrokerUrl);
+    public Client(final String ipBroker) {
+
+        final String brokerUrl = "tcp://" + ipBroker + ":61616";
+
+        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(brokerUrl);
         try {
             Connection connection = connectionFactory.createConnection();
             connection.start();
@@ -103,7 +104,7 @@ public class Client {
     }
 
     public static void main(String[] args) {
-        Client c = new Client();
+        Client c = new Client( args.length == 1 ? args[0] : "localhost" );
         c.send("COUCOU");
 
         ArrayList<String> names = new ArrayList<>();
