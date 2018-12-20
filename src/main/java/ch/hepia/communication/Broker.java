@@ -27,8 +27,6 @@ public class Broker {
     }
 
     public static void main(String[] args) {
-        System.out.println(args[0]);
-
         new Broker( args.length == 1 ? args[0] : "localhost");
     }
 }
